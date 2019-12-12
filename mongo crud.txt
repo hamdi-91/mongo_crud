@@ -1,0 +1,41 @@
+1/Create a database called "contact" :
+ use contact
+switched to db contact
+2/Create a collection called "contactlist" :
+> db
+contact
+> db.contactlist
+contact.contactlist
+3/Insert 3 persons in "contactlist" :
+ db.contactlist.insert({lastname: 'Ben Lahmer', firstname: 'Hamdi', Email: 'fares@gmail.com', age:'26' })
+WriteResult({ "nInserted" : 1 })
+> db.contactlist.insert({'Last name': 'Kefi', 'First name': 'Seif', 'Email': 'kefi@gmail.com', 'age':'15'},{'Last name': 'Fatnassi', 'First name': 'Sarra', 'Email': 'sarra.f@gmail.com', 'age':'40'})
+WriteResult({ "nInserted" : 1 })
+4/Display all the contact list :
+> db.contactlist.find()                                                                                                                            
+{ "_id" : ObjectId("5df1fc085c0db51653ee3a7e"), "Last name" : "Ben Lahmer", "First name" : "Fares", "Email" : "fares@gmail.com", "age" : "26" }    
+{ "_id" : ObjectId("5df1fc655c0db51653ee3a7f"), "Last name" : "Kefi", "First name" : "Seif", "Email" : "kefi@gmail.com", "age" : "15" }            
+{ "_id" : ObjectId("5df1fcd15c0db51653ee3a80"), "Last name" : "Fatnassi", "First name" : "Sarra", "Email" : "sarra.f@gmail.com", "age" : "40" }    
+5/Display all the information about only one person using his id
+> db.contactlist.find({ "_id" : ObjectId("5df1fc655c0db51653ee3a7f")})
+{ "_id" : ObjectId("5df1fc655c0db51653ee3a7f"), "Last name" : "Kefi", "First name" : "Seif", "Email" : "kefi@gmail.com", "age" : "15" }
+6/Display all the contact list having age>18:
+> db.contactlist.find({age: {$gt: "18"}})                                                                                                           
+{ "_id" : ObjectId("5df1fc085c0db51653ee3a7e"), "Last name" : "Ben Lahmer", "First name" : "Fares", "Email" : "fares@gmail.com", "age" : "26" }     
+{ "_id" : ObjectId("5df1fcd15c0db51653ee3a80"), "Last name" : "Fatnassi", "First name" : "Sarra", "Email" : "sarra.f@gmail.com", "age" : "40" }     
+7/Display all the contact list having age>18 and name containing "ah":
+db.contactlist.find({'age': {$gt: "18"}},{'name': /ah/})
+"_id" : ObjectId("5df1fc085c0db51653ee3a7e") }          
+"_id" : ObjectId("5df1fcd15c0db51653ee3a80") }          
+8/Change the contact first name of "kefi Seif" by "Kefi Anis" :
+ db.contactlist.update({firstname:'Hamdi'},{$set:{firstname:'Moez'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+9/Delete the the contact list having age < 5 :
+ db.contactlist.remove({age : {$lt : 5}})
+10/Display all the contact list:
+db.contactlist.find()
+
+
+
+
+
